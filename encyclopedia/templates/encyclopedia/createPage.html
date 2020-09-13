@@ -46,7 +46,7 @@ Create a new Page - Encyclopedia
 <form action="{% url 'createPage' %}" method="POST">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Create Page">
+    <input type="submit" class="btn btn-primary" value="Create Page">
 </form>
 
 {% endblock %}
