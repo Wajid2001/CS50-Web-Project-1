@@ -1,0 +1,52 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+{{ title }} - Encyclopedia
+{% endblock %}
+
+{% block body %}
+
+{% if titleError %}
+<style>
+    #titleError {
+        display: block;
+    }
+
+    #titleError2 {
+        display: block;
+    }
+</style>
+{% else %}
+<style>
+    #titleError {
+        display: none;
+    }
+
+    #titleError2 {
+        display: none;
+    }
+</style>
+{% endif %}
+
+
+<div id="titleError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{ title }}</strong> already exist.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div id="titleError2" class="alert alert-warning alert-dismissible fade show" role="alert">
+    Try adding another content with different title
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<form action="{% url 'createPage' %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Create Page">
+</form>
+
+{% endblock %}
