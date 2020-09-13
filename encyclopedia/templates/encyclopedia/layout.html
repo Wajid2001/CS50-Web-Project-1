@@ -9,14 +9,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+    <style>
+        /* This hides the q: above serach box */
+        label[for="id_q"] {
+            display: none;
+        }
+    </style>
 </head>
 
 <body style="min-width: 300px;">
     <div class="row" style="margin: 0px !important;">
         <div class="sidebar col-lg-2 col-md-3">
             <h2>Wiki</h2>
-            <form>
-                <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
+            <form action="{% url 'index' %}" method="post">
+                {% csrf_token %}
+                {{ searchForm }}
             </form>
             <div>
                 <a href="{% url 'index' %}">Home</a>

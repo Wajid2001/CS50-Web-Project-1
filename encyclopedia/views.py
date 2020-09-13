@@ -8,6 +8,11 @@ import markdown2
 import random
 
 
+# This is a new render function
+class searchForm(forms.Form):
+    q = forms.CharField(max_length=100)
+
+
 # This create a form object
 class newPageForm(forms.Form):
     title = forms.CharField(label="Title", max_length=100)
@@ -21,23 +26,33 @@ def index1(request):
 
 
 # This is the Main Page of the website
-def index(request):
-    return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
-    })
+def index(request, methods=["GET", "POST"]):
+    if request.method == "POST":
+        form = searchForm(request.POST)
+        if form.is_valid():
+            q = form.cleaned_data["q"]
+            return search(request, q)
+    else:
+        return render(request, "encyclopedia/index.html", {
+            "searchForm": searchForm(),
+            "entries": util.list_entries()
+        })
 
 
 # This is the search result page of the website
-def search(request, q):
+def search(request, q=None):
     if q and q != '':
         content = util.get_entry(q)
         if content:
             return render(request, "encyclopedia/search.html", {
+                "searchForm": searchForm(),
                 "title": q,
                 "content": markdown2.markdown(content)
             })
         else:
-            return render(request, "encyclopedia/404.html")
+            return render(request, "encyclopedia/404.html", {
+                "searchForm": searchForm(),
+            })
     else:
         return HttpResponseRedirect(reverse("index"))
 
@@ -54,6 +69,7 @@ def createPage(request, methods=["GET", "POST"]):
                 return HttpResponseRedirect(reverse("index"))
             else:
                 return render(request, "encyclopedia/createPage.html", {
+                    "searchForm": searchForm(),
                     "titleError": True,
                     "form": form
                 })
@@ -61,6 +77,7 @@ def createPage(request, methods=["GET", "POST"]):
             return render(request, "encyclopedia/404.html")
     else:
         return render(request, "encyclopedia/createPage.html", {
+            "searchForm": searchForm(),
             "titleError": False,
             "form": newPageForm()
         })
