@@ -10,14 +10,24 @@ import random
 
 # This is a new render function
 class searchForm(forms.Form):
-    q = forms.CharField(max_length=100)
+    q = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+        'placeholder': 'Search Encyclopedia'
+    }))
 
 
 # This create a form object
 class newPageForm(forms.Form):
-    title = forms.CharField(label="Title", max_length=100)
+    title = forms.CharField(label="Title", max_length=100,
+                            widget=forms.TextInput(attrs={
+                                'placeholder': 'Enter your Title here'
+                            }
+                            ))
     content = forms.CharField(
-        label="Type Content in MD text", widget=forms.Textarea)
+        label="Type Content in MD text",
+        widget=forms.Textarea(attrs={
+            'placeholder': 'Enter your MD text here'
+        }
+        ))
 
 
 # If the User vist direct website not "wiki/"
