@@ -81,6 +81,7 @@ def edit(request, method=["POST"]):
     })
     return render(request, "encyclopedia/edit.html", {
         "searchForm": searchForm(),
+        "title": t,
         "form": form
     })
 

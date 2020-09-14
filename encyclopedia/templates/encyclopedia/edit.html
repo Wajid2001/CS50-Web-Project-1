@@ -5,13 +5,15 @@ Edit Page - Encyclopedia
 {% endblock %}
 
 {% block body %}
-
+<h1>Edit "{{ title }}" Page</h1>
 <form action="{% url 'update' %}" method="POST">
     {% csrf_token %}
 
     {% for item in form %}
+    {% if "itle" not in item.label %}
     {{ item.label }} <br>
     {{ item }}<br>
+    {% endif %}
     {% endfor %}
 
     <input type="submit" class="btn btn-primary" value="Update Page">
