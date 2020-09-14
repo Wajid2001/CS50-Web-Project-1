@@ -23,7 +23,7 @@ class newPageForm(forms.Form):
                             }
                             ))
     content = forms.CharField(
-        label="Type Content in MD text",
+        label="Content",
         widget=forms.Textarea(attrs={
             'placeholder': 'Enter your MD text here'
         }
