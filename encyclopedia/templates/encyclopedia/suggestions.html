@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block body %}
-<h1>Suggestions for "{{ q }}"</h1>
+<h1 style="display: inline-flex;">Suggestions for "<p class="text-primary mb-0">{{ q }}</p>"</h1>
+<hr class="mt-0 mb-2">
+<h6>Found {{ nResult }} result{% if nResult > 1 %}s{% endif %}</h6>
 <ul>
     {% for entry in entries %}
     <li><a href="{% url 'index' %}{{ entry }}">{{ entry }}</a></li>

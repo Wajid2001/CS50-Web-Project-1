@@ -62,17 +62,19 @@ def suggest(request, q):
 def search(request, q=None):
     if q and q != '':
         content = util.get_entry(q)
+        s = suggest(request, q)
         if content:
             return render(request, "encyclopedia/search.html", {
                 "searchForm": searchForm(),
                 "title": q,
                 "content": markdown2.markdown(content)
             })
-        elif suggest(request, q):
+        elif s:
             return render(request, "encyclopedia/suggestions.html", {
                 "searchForm": searchForm(),
                 "q": q,
-                "entries": suggest(request, q)
+                "nResult": len(s),
+                "entries": s
             })
         else:
             return render(request, "encyclopedia/404.html", {
