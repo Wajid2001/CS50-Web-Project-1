@@ -10,13 +10,18 @@ Edit Page - Encyclopedia
     {% csrf_token %}
 
     {% for item in form %}
-    {% if "itle" not in item.label %}
+    {% if "itle" in item.label %}
+    <div style="display: none;">
+        {{ item.label }} <br>
+        {{ item }}<br>
+    </div>
+    {% else %}
     {{ item.label }} <br>
     {{ item }}<br>
     {% endif %}
     {% endfor %}
 
-    <input type="submit" class="btn btn-primary" value="Update Page">
+    <input type="submit" class="btn btn-primary" value="Save Changes">
 </form>
 
 {% endblock %}
