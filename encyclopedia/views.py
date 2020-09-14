@@ -39,6 +39,15 @@ def index(request, methods=["GET", "POST"]):
         })
 
 
+# This gives list of suggested seraches
+def suggest(request, q):
+    s = []
+    for i in util.list_entries():
+        if q.casefold() in i.casefold():
+            s.append(i)
+    return s
+
+
 # This is the search result page of the website
 def search(request, q=None):
     if q and q != '':
@@ -48,6 +57,12 @@ def search(request, q=None):
                 "searchForm": searchForm(),
                 "title": q,
                 "content": markdown2.markdown(content)
+            })
+        elif suggest(request, q):
+            return render(request, "encyclopedia/suggestions.html", {
+                "searchForm": searchForm(),
+                "q": q,
+                "entries": suggest(request, q)
             })
         else:
             return render(request, "encyclopedia/404.html", {
