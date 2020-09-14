@@ -8,4 +8,10 @@
 
 {% autoescape off %}{{ content }}{% endautoescape %}
 
+<form action="{% url 'edit' %}" method="POST">
+    {% csrf_token %}
+    <input style="display: none;" name="title" type="text" value="{{ title }}">
+    <input type="submit" value="Edit" class="btn btn-outline-secondary">
+</form>
+
 {% endblock %}

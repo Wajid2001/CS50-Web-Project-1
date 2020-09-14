@@ -57,14 +57,32 @@ def search(request, q=None):
         return HttpResponseRedirect(reverse("index"))
 
 
+# This render to the existing page
+def edit(request, method=["POST"]):
+    t = request.POST["title"]
+    form = newPageForm(initial={
+        "title": t,
+        "content": util.get_entry(t)
+    })
+    return render(request, "encyclopedia/edit.html", {
+        "searchForm": searchForm(),
+        "form": form
+    })
+
+
+# This updates the server data
+def update(request, method=["POST"]):
+    return createPage(request, update=True)
+
+
 # This Creates a new wiki Page
-def createPage(request, methods=["GET", "POST"]):
+def createPage(request, methods=["GET", "POST"], update=False):
     if request.method == "POST":
         form = newPageForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"]
             content = form.cleaned_data["content"]
-            if not util.get_entry(title):
+            if not util.get_entry(title) or update:
                 util.save_entry(title, content)
                 return HttpResponseRedirect(reverse("index"))
             else:
