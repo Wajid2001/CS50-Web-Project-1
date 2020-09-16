@@ -53,7 +53,7 @@ def index(request, methods=["GET", "POST"]):
         if "newpage" not in request.session:
             request.session["newpage"] = False
         if "message" not in request.session:
-            request.session["newpage"] = None
+            request.session["message"] = None
         return render(request, "encyclopedia/index.html", {
             "pageCreated": pageCreated,
             "newPage": request.session["newpage"],
