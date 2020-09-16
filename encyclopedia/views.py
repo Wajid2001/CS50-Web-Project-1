@@ -44,6 +44,7 @@ def index(request, methods=["GET", "POST"]):
     else:
         if "pageCreated" not in request.session:
             request.session['pageCreated'] = False
+            pageCreated = False
         elif request.session.get('pageCreated') == True:
             pageCreated = True
             request.session['pageCreated'] = False
