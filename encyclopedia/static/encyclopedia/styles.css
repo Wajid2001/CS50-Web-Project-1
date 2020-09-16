@@ -49,6 +49,9 @@ input, textarea {
     font-size: 16px;
 }
 
+
+
+/* This is scrollbar style */
 ::-webkit-scrollbar {
     width: 16px;
 }

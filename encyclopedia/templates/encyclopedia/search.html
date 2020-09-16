@@ -6,8 +6,10 @@
 
 {% block body %}
 
+<!-- This is the result content of the wiki page -->
 {% autoescape off %}{{ content }}{% endautoescape %}
 
+<!-- This is the Edit page button -->
 <form action="{% url 'edit' %}" method="POST">
     {% csrf_token %}
     <input style="display: none;" name="title" type="text" value="{{ title }}">
