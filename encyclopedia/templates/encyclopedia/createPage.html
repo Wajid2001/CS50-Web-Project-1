@@ -30,14 +30,15 @@ Create a new Page - Encyclopedia
 
 
 <div id="titleError" class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>{{ title }}</strong> already exist.
+    A Wiki Page of name "<strong>{{ title }}</strong>" already exist.
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
 <div id="titleError2" class="alert alert-warning alert-dismissible fade show" role="alert">
-    Try adding another content with different title
+    Try adding another content or edit the existing page at <a
+        href="{% url 'index' %}{{ title }}">{% url 'index' %}{{ title }}</a>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>

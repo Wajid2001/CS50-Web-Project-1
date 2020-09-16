@@ -52,6 +52,7 @@ def index(request, methods=["GET", "POST"]):
         return render(request, "encyclopedia/index.html", {
             "pageCreated": pageCreated,
             "newPage": request.session["newpage"],
+            "message": request.session["message"],
             "searchForm": searchForm(),
             "entries": util.list_entries()
         })
@@ -122,11 +123,16 @@ def createPage(request, methods=["GET", "POST"], update=False):
                 util.save_entry(title, content)
                 request.session["pageCreated"] = True
                 request.session["newpage"] = title
+                if update:
+                    request.session["message"] = "updated"
+                else:
+                    request.session["message"] = "created"
                 return HttpResponseRedirect(reverse("index"))
             else:
                 return render(request, "encyclopedia/createPage.html", {
                     "searchForm": searchForm(),
                     "titleError": True,
+                    "title": title,
                     "form": form
                 })
         else:

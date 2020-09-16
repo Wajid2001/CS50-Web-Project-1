@@ -6,6 +6,7 @@ Encyclopedia
 
 {% block body %}
 
+<!-- This is the notification for new page created -->
 {% if pageCreated == True %}
 <style>
     #page_Created {
@@ -21,12 +22,12 @@ Encyclopedia
 {% endif %}
 
 <div id="page_Created" class="alert alert-success" role="alert">
-    <h4 class="alert-heading">Well done!{{ pageCreated }}
+    <h4 class="alert-heading">Well done!
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </h4>
-    <p><strong>{{ newPage }}</strong> page is successfully created.</p>
+    <p><strong>{{ newPage }}</strong> page is successfully {{ message }}.</p>
     <hr>
     <p class="mb-0">You may visit at <a href="{% url 'index' %}{{ newPage }}">{% url 'index' %}{{ newPage }}</a>.</p>
 </div>
