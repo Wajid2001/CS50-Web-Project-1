@@ -5,6 +5,31 @@ Encyclopedia
 {% endblock %}
 
 {% block body %}
+
+{% if pageCreated == True %}
+<style>
+    #page_Created {
+        display: block !important;
+    }
+</style>
+{% else %}
+<style>
+    #page_Created {
+        display: none !important;
+    }
+</style>
+{% endif %}
+
+<div id="page_Created" class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Well done!{{ pageCreated }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </h4>
+    <p><strong>{{ newPage }}</strong> page is successfully created.</p>
+    <hr>
+    <p class="mb-0">You may visit at <a href="{% url 'index' %}{{ newPage }}">{% url 'index' %}{{ newPage }}</a>.</p>
+</div>
 <h1>All Pages</h1>
 
 <ul>

@@ -20,8 +20,7 @@ class newPageForm(forms.Form):
     title = forms.CharField(label="Title", max_length=100,
                             widget=forms.TextInput(attrs={
                                 'placeholder': 'Enter your Title here'
-                            }
-                            ))
+                            }))
     content = forms.CharField(
         label="Content",
         widget=forms.Textarea(attrs={
@@ -43,7 +42,16 @@ def index(request, methods=["GET", "POST"]):
             q = form.cleaned_data["q"]
             return search(request, q)
     else:
+        if "pageCreated" not in request.session:
+            request.session['pageCreated'] = False
+        elif request.session.get('pageCreated') == True:
+            pageCreated = True
+            request.session['pageCreated'] = False
+        else:
+            pageCreated = False
         return render(request, "encyclopedia/index.html", {
+            "pageCreated": pageCreated,
+            "newPage": request.session["newpage"],
             "searchForm": searchForm(),
             "entries": util.list_entries()
         })
@@ -112,6 +120,8 @@ def createPage(request, methods=["GET", "POST"], update=False):
             content = form.cleaned_data["content"]
             if not util.get_entry(title) or update:
                 util.save_entry(title, content)
+                request.session["pageCreated"] = True
+                request.session["newpage"] = title
                 return HttpResponseRedirect(reverse("index"))
             else:
                 return render(request, "encyclopedia/createPage.html", {
