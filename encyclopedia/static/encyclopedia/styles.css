@@ -3,6 +3,13 @@ body {
     background-color: white;
 }
 
+/* This is the brand Text Wiki */
+#brandText, #brandText:hover{
+    color: #212529 !important;
+    text-decoration: none !important;
+}
+
+
 code {
     white-space: pre;
 }

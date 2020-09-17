@@ -23,13 +23,17 @@
 <body style="min-width: 300px;">
     <div class="row" style="margin: 0px !important;">
         <div class="sidebar col-lg-2 col-md-3">
-            <center>
-                <!-- This is the brand logo -->
-                <img style="max-width: -webkit-fill-available;" src="{% static 'encyclopedia/brand-logo.png' %}"
-                    alt="Wikipedia">
 
-                <h2>Wiki</h2>
-            </center>
+            <a id="brandText" href="{% url 'index' %}">
+                <center>
+                    <!-- This is the brand logo -->
+                    <img style="max-width: -webkit-fill-available;" src="{% static 'encyclopedia/brand-logo.png' %}"
+                        alt="Wikipedia">
+
+                    <h2>Wiki</h2>
+                </center>
+            </a>
+
             <!-- This is the search box -->
             <form action="{% url 'index' %}" method="post">
                 {% csrf_token %}
