@@ -29,6 +29,13 @@ class newPageForm(forms.Form):
         ))
 
 
+# This return the original Content title
+def check(title):
+    for i in util.list_entries():
+        if title.lower() == i.lower():
+            return i
+
+
 # If the User vist direct website not "wiki/"
 def index1(request):
     return HttpResponseRedirect(reverse("index"))
@@ -80,7 +87,7 @@ def search(request, q=None):
         if content:
             return render(request, "encyclopedia/search.html", {
                 "searchForm": searchForm(),
-                "title": q,
+                "title": check(q),
                 "content": markdown2.markdown(content)
             })
         elif s:
@@ -102,12 +109,12 @@ def search(request, q=None):
 def edit(request, method=["POST"]):
     t = request.POST["title"]
     form = newPageForm(initial={
-        "title": t,
+        "title": check(t),
         "content": util.get_entry(t)
     })
     return render(request, "encyclopedia/edit.html", {
         "searchForm": searchForm(),
-        "title": t,
+        "title": check(t),
         "form": form
     })
 
